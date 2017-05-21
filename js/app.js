@@ -15,45 +15,63 @@ $.ajax({
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             local: $.map(items, function (val, key) {
                 return {
+                    value: val.value,
                     NAME: val.NAME,
-                    value: val.value
-                }
+                    TBNAME: val.TBNAME
+                };
             })
         });
         mydata.initialize();
 
         var elt = $('input');
         elt.materialtags({
-            itemValue: 'value',
+            //itemValue: 'value',
+            itemValue: function (item) {
+                return item.value;
+            },
             itemText: 'NAME',
+            tagClass: function (item) {
+                if (item.TBNAME === 'systemkeywords') {
+                    return 'chip chip_blue';
+                } else if (item.TBNAME === 'employee') {
+                    return 'chip chip_green';
+                } else if (item.TBNAME === 'empdata') {
+                    return 'chip chip_maroon';
+                } else {
+                    return 'chip chip_yellow';
+                }
+            },
             typeaheadjs: {
                 name: 'mydata',
                 displayKey: 'NAME',
                 source: mydata.ttAdapter()
             }
         });
-        /* $('input').on('change', function (event) {
-             var _chip = document.getElementsByClassName('chip');
 
-             var $element = $(event.target),
-                 $container = $element.closest('.example');
+        $('input').on('beforeItemAdd', function (event) {
+            // event.item: contains the item
+            // event.cancel: set to true to prevent the item getting added
+            if (event.item.TBNAME === 'systemkeywords') {
+                console.log(event.item);
+                var _chip = document.getElementsByClassName('chip');
+            }
+        });
 
-             if (!$element.data('materialtags')) {
-                 return;
-             }
+        $('input').on('itemAdded', function (event) {
+            // event.item: contains the item
+            //$('input').materialtags('refresh');
+            if (event.item.TBNAME === 'systemkeywords') {
+                console.log(event.item);
+            }
+        });
+        $('input').on('beforeItemRemove', function (event) {
+            // event.item: contains the item
+            // event.cancel: set to true to prevent the item getting removed
+             var tag = event.item;
+            console.log(event.cancel);
+        });
+        $('input').on('itemRemoved', function (event) {
+            // event.item: contains the item
+        });
 
-             console.log(_chip);
-             if (_chip[0]) {
-                 _chip[0].style.background = 'red';
-             }
-
-             var val = $element.val();
-             if (val === null) {
-                 val = "null";
-             }
-             $('code', $('pre.val', $container)).html(($.isArray(val) ? JSON.stringify(val) : "\"" +
-                 val.replace('"', '\\"') + "\""));
-             $('code', $('pre.items', $container)).html(JSON.stringify($element.materialtags('items')));
-
-         }).trigger('change');*/
     });

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>-->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="js/typeahead.bundle.min.js"></script>
+    <!--<script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>-->
+    <script src="js/materialize-tags.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/materialize-tags.min.css">
+    <script src="js/app.js"></script>
+
+
+    <div id="typeahead" class="col-md-8">
+        <input type="text" />
+    </div>
+
+    <!--<script>
+        $.ajax({
+                dataType: "json",
+                url: "./data.json"
+            })
+            .done(function (data) {
+                var data = data.records;
+                var engine = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace("value"),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    local: $.map(data, function (val, key) {
+                        // return `suggestion` object for `templates` `suggestion`         
+                        return {
+                            value: val.NAME,
+                            suggestion: val
+                        }
+                    })
+                });
+
+                engine.initialize();
+
+                $('input').materialtags({
+                    // itemValue: 'value',
+                    //itemNAME: 'value',
+                    typeaheadjs: {
+                        name: "engine",
+                        displayKey: "NAME",
+                        valueKey: 'NAME',
+
+                        templates: {
+                            empty: [
+                                '<div class="empty-message">',
+                                'Unable to find any match for the current query',
+                                '</div>'
+                            ].join('\n'),
+                            suggestion: function (data) {
+                                // `suggestion` object passed at `engine`
+                                console.log(data.suggestion);
+                                // return suggestion element to display
+                                var _suggestion = "<p>" +
+                                    data.suggestion.NAME + "</p>";
+                                return _suggestion
+                            }
+                        },
+                        source: engine.ttAdapter()
+                    }
+                });
+            });
+    </script>-->
+</body>
+
+</html>
